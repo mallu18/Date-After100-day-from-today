@@ -1,12 +1,18 @@
 const express = require('express')
-const {addDays, format} = require('date-fns')
+const addDays = require('date-fns/addDays')
 
 const app = express()
 
 app.get('/', (req, res) => {
-  const futureDate = addDays(new Date(), 100)
-  const formattedDate = format(futureDate, 'd/M/yyyy')
-  res.send(formattedDate)
+  const dateTime = new Date()
+  const result = addDays(
+    new Date(dateTime.getFullYear(), dateTime.getMonth(), dateTime.getDate()),
+    100,
+  )
+
+  res.send(
+    `${result.getDate()}/${result.getMonth() + 1}/${result.getFullYear()}`,
+  )
 })
 
 module.exports = app
